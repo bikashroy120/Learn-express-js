@@ -45,7 +45,7 @@ const loginControler = async (req,res,next)=>{
             })
         }
 
-        const vilidet = await bcrypt.compare(password,User.password)
+        const vilidet = await bcrypt.compare(password,user.password)
 
         if(!vilidet){
             res.status(400).json({
@@ -53,7 +53,7 @@ const loginControler = async (req,res,next)=>{
             })
         }
 
-        const token = jwt.sign({username,_id:user._id},process.env.PRIVAT_KEY,{expiresIn:"2h"});
+        const token = await jwt.sign({username,_id:user._id},process.env.PRIVAT_KEY,{expiresIn:"2h"});
 
         res.status(200).json({
             message:"login successfully",
